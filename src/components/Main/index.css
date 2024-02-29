@@ -1,0 +1,85 @@
+.main {
+  width: 1440px;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#actionButtons {
+  width: 389px;
+  height: 40px;
+  padding-left: 80px;
+  display: flex;
+  gap: 18px;
+  top: 286px;
+  background-color: aquamarine;
+}
+#buttons {
+  width: 86px;
+  height: 40px;
+  border-radius: 100px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#buttons:hover {
+  border-color: #081e346b;
+  background-color: #081e346b;
+  border-width: 0%;
+}
+#buttons:active {
+  background-color: #081e346b;
+}
+
+#modalWindow {
+  width: auto;
+  padding-right: 100px;
+}
+
+#btnModalWindow {
+  width: 52px;
+  height: 52px;
+  border-radius: 100px;
+  gap: 8px;
+  margin-top: 0px;
+  margin-left: 700px;
+  background-color: #081e34;
+}
+
+#sectionTitle {
+  width: 1, 280px;
+  height: 54px;
+  top: 390px;
+  padding-left: 80px;
+  gap: 24px;
+  background-color: aquamarine;
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #151517;
+}
+
+#itemsTodo {
+  width: 654px;
+  height: auto;
+
+  padding-left: 56px;
+  gap: 16px;
+}
+
+#btnMenu {
+  border: none;
+  width: 24px;
+  height: 24px;
+}
+#btnMenu:hover {
+  background-color: #aeaeae;
+}

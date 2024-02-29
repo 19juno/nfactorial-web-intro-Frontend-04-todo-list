@@ -1,0 +1,25 @@
+.header {
+  font-family: "Inter";
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(21, 21, 23, 1);
+  width: 630px;
+  height: 84px;
+  padding-top: 100px;
+  padding-left: 80px;
+  background-color: bisque;
+  gap: 24px;
+}
+
+#title {
+  font-size: 40px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 38px;
+}
+#quote {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+}

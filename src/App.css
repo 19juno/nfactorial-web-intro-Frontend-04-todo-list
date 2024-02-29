@@ -1,0 +1,10 @@
+.App {
+  width: 1440px;
+  height: 1000px;
+  top: -569px;
+  left: -209px;
+  background-color: rgba(241, 241, 241, 1);
+  gap: 120px;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,51 @@
+#modalWindowContainer {
+  width: 268px;
+  height: 234px;
+  border-radius: 12px;
+  background-color: rgba(228, 230, 231, 1);
+  padding: 16px;
+  margin-top: -180px;
+  margin-left: 900px;
+  gap: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+}
+
+#textModalWindow {
+  font-size: 16px;
+  font-family: "Inter";
+  font-weight: 700;
+  color: black;
+}
+
+#inputModalWindow {
+  width: 236px;
+  height: 120px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  outline: none;
+}
+
+#inputModalWindow::placeholder {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #959595;
+  margin: 0px;
+}
+#addBtn {
+  border-radius: 100px;
+  width: 76px;
+  height: 40px;
+  margin-top: 10px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+}
