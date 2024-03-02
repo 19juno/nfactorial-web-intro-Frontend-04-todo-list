@@ -1,8 +1,8 @@
 #btnMoveToTrash {
   width: 240px;
   height: auto;
-
-  left: 56px;
+  top: 100%;
+  left: 10%;
   position: absolute;
   border-radius: 12px;
   gap: 10px;
@@ -12,19 +12,9 @@
   border: none;
   cursor: pointer;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
-#btnMoveToTrash p {
-  font-family: "Inter";
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #353535;
-  display: flex;
-  background-color: aquamarine;
-}
 #btnMoveToTrash:hover {
   border-color: #081e346b;
   background-color: #081e346b;
@@ -36,5 +26,31 @@
 #imgTrash {
   width: 20px;
   height: 20px;
-  background-color: aquamarine;
+}
+
+#btnForTrash {
+  width: 240px;
+  height: auto;
+  top: 100%;
+  left: 10%;
+  position: absolute;
+  border-radius: 12px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px 0px 10px;
+  background-color: #e4e6e7;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+#insideBtn {
+  height: auto;
+  gap: 5px;
+  display: flex;
+  padding: 0x 0px 0px 0px;
+  background-color: #e4e6e7;
+  border: none;
+  cursor: pointer;
 }

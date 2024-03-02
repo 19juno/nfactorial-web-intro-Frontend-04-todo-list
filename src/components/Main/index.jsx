@@ -6,12 +6,18 @@ import { useState } from "react";
 import ModalWindow from "./ModalWindow";
 import Actions from "./Actions";
 import ModalButton from "./ModalButton";
+import ModalButtonForTrash from "./ModalButton/BtnForTrash";
 
 export default function Main() {
-  // for Modal window
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [todos, setTodos] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false); // for Modal window
+  const [isModalBtnOpen, setModalBtnOpen] = useState(false); // for Modal Button
+  const [filteredStatus, setFilteredStatus] = useState("todo"); // для фильтрации страниц
+  const [pageTitle, setPageTitle] = useState("To Do"); // изменение темы title
+  const [isOpenForTrash, setOpenForTrash] = useState(false); // для кнопки из контента Trash
 
   const openModal = () => {
+    // for ModalWindow
     setModalOpen(!isModalOpen);
   };
 
@@ -19,55 +25,23 @@ export default function Main() {
     setModalOpen(false);
   };
 
-  // for Modal Button
-
-  const [isModalBtnOpen, setModalBtnOpen] = useState(false);
-
-  const openModalBtn = () => {
-    setModalBtnOpen(!isModalBtnOpen);
-  };
-
-  const closeModalBtn = () => {
-    setModalBtnOpen(false);
-  };
-
-  // ФИЛЬТРАЦИЯ
-
-  const [todos, setTodos] = useState([]);
-
-  const [filteredStatus, setFilteredStatus] = useState("todo"); // для фильтрации страниц
-
   const addNewTodo = (newTodo) => {
     // добавление новой todo-shki
-    const newTodoItem = {
-      id: Date.now(),
-      title: newTodo,
-      status: "todo",
-    };
-    setTodos((prevTodos) => [...prevTodos, newTodoItem]);
+
+    if (newTodo !== "") {
+      const newTodoItem = {
+        id: Date.now(),
+        title: newTodo,
+        status: "todo",
+      };
+      setTodos((prevTodos) => [...prevTodos, newTodoItem]);
+    } else {
+      alert("Заполните текст");
+    }
   };
 
-  const [pageTitle, setPageTitle] = useState("To Do"); // изменение темы title
-
-  // кнопки для перекидывания todo на другие страницы
-
-  function moveToTrash(idx) {
-    const newTodos = todos.map((item) =>
-      item.id === idx ? { ...item, status: "trash" } : item
-    );
-    setTodos(newTodos);
-    closeModalBtn();
-  }
-
-  function makeTodoDone(idx) {
-    const newTodos = todos.map((item) =>
-      item.id === idx ? { ...item, status: "done" } : item
-    );
-    setTodos(newTodos);
-  }
-
-  // для смены контента на странице
   function changePage(newStatus, newTitle) {
+    // для смены контента на странице
     setFilteredStatus(newStatus);
     setPageTitle(newTitle);
   }
@@ -78,9 +52,44 @@ export default function Main() {
     if (filteredStatus == "trash" && item.status == "trash") return item;
   });
 
+  function openModalBtn(idx) {
+    // для открытия модальной кнопки
+    const item = todos.find((item) => item.id === idx);
+    if (item) {
+      setModalBtnOpen((prevState) => !prevState);
+    }
+    if (item.status === "trash") {
+      setOpenForTrash((prevState) => !prevState);
+    }
+  }
+
+  function moveToTrash(idx) {
+    // для перекидывания todo на другие страницы
+    const newTodos = todos.map((item) =>
+      item.id === idx ? { ...item, status: "trash" } : item
+    );
+    setTodos(newTodos);
+  }
+
+  function makeTodoDone(idx) {
+    const newTodos = todos.map((item) =>
+      item.id === idx ? { ...item, status: "done" } : item
+    );
+
+    setTodos(newTodos);
+  }
+
+  // Modal button for Trash
+
+  const deleteForever = (idx) => {
+    const newTodos = todos.filter((item) => item.id !== idx);
+    setTodos(newTodos);
+    setOpenForTrash((prevState) => !prevState);
+  };
+
   return (
     <div className="main">
-      <div className="d-flex justify-content-between align-baseline">
+      <div className="d-flex justify-content-between align-baseline plusBtnContainer">
         <Actions changePage={changePage} />
 
         {isModalOpen && (
@@ -90,16 +99,25 @@ export default function Main() {
           <img src={ImagePlus} alt="Plus" />
         </button>
       </div>
+      <div className="">
+        <p id="sectionTitle">{pageTitle}</p>
+        <hr id="hr" />
+      </div>
 
-      <p id="sectionTitle">{pageTitle}</p>
-      <hr className="mx-5" />
       {todos &&
         filteredTodos.map((item, index) => (
           <div key={index} className="d-flex" id="itemsTodo">
-            {isModalBtnOpen && (
-              <ModalButton moveToTrash={moveToTrash} item={item} />
-            )}
-            <button id="btnMenu" onClick={openModalBtn}>
+            {item.status === "trash"
+              ? isOpenForTrash && (
+                  <ModalButtonForTrash
+                    deleteForever={deleteForever}
+                    item={item}
+                  />
+                )
+              : isModalBtnOpen && (
+                  <ModalButton moveToTrash={moveToTrash} item={item} />
+                )}
+            <button id="btnMenu" onClick={() => openModalBtn(item.id)}>
               <img
                 id="imgVector"
                 src={Vector}

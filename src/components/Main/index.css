@@ -1,9 +1,13 @@
 .main {
   width: 1440px;
   height: auto;
-  position: relative;
   display: flex;
   flex-direction: column;
+  gap: 50px;
+}
+
+.plusBtnContainer {
+  position: relative;
 }
 
 #modalWindow {
@@ -17,7 +21,7 @@
   border-radius: 100px;
   gap: 8px;
   margin-top: 0px;
-  margin-left: 700px;
+  margin-right: 100px;
   background-color: #081e34;
 }
 
@@ -27,7 +31,6 @@
   top: 390px;
   padding-left: 80px;
   gap: 24px;
-  background-color: aquamarine;
   font-family: "Inter";
   font-size: 24px;
   font-weight: 700;
@@ -37,12 +40,18 @@
   color: #151517;
 }
 
+#hr {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
 #itemsTodo {
   width: 654px;
   height: auto;
   padding-top: 20px;
   padding-left: 56px;
   gap: 8px;
+  position: relative;
 }
 
 #imgVector {
@@ -52,8 +61,11 @@
   display: flex;
   align-content: center;
   justify-content: center;
-
   color: #aeaeae;
+}
+
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
 }
 
 #btnMenu {
@@ -68,9 +80,7 @@
 #btnMoveToTrash {
   width: 240px;
   height: auto;
-
   left: 56px;
-
   border-radius: 12px;
   gap: 10px;
   display: flex;
@@ -90,7 +100,6 @@
   text-align: left;
   color: #353535;
   display: flex;
-  background-color: aquamarine;
 }
 #btnMoveToTrash:hover {
   border-color: #081e346b;
@@ -103,5 +112,4 @@
 #imgTrash {
   width: 20px;
   height: 20px;
-  background-color: aquamarine;
 }
