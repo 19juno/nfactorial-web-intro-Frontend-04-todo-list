@@ -5,36 +5,6 @@
   display: flex;
   flex-direction: column;
 }
-#actionButtons {
-  width: 389px;
-  height: 40px;
-  padding-left: 80px;
-  display: flex;
-  gap: 18px;
-  top: 286px;
-  background-color: aquamarine;
-}
-#buttons {
-  width: 86px;
-  height: 40px;
-  border-radius: 100px;
-  border: none;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: "Inter", sans-serif;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-#buttons:hover {
-  border-color: #081e346b;
-  background-color: #081e346b;
-  border-width: 0%;
-}
-#buttons:active {
-  background-color: #081e346b;
-}
 
 #modalWindow {
   width: auto;
@@ -70,9 +40,20 @@
 #itemsTodo {
   width: 654px;
   height: auto;
-
+  padding-top: 20px;
   padding-left: 56px;
-  gap: 16px;
+  gap: 8px;
+}
+
+#imgVector {
+  width: 4.5px;
+  height: 15px;
+  margin: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  color: #aeaeae;
 }
 
 #btnMenu {
@@ -82,4 +63,45 @@
 }
 #btnMenu:hover {
   background-color: #aeaeae;
+}
+
+#btnMoveToTrash {
+  width: 240px;
+  height: auto;
+
+  left: 56px;
+
+  border-radius: 12px;
+  gap: 10px;
+  display: flex;
+  padding: 10px 0px 0px 10px;
+  background-color: #e4e6e7;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#btnMoveToTrash p {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #353535;
+  display: flex;
+  background-color: aquamarine;
+}
+#btnMoveToTrash:hover {
+  border-color: #081e346b;
+  background-color: #081e346b;
+  border-width: 0%;
+}
+#btnMoveToTrash:active {
+  background-color: #081e346b;
+}
+#imgTrash {
+  width: 20px;
+  height: 20px;
+  background-color: aquamarine;
 }

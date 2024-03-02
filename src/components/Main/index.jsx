@@ -4,8 +4,11 @@ import ImagePlus from "../../assets/PlusMath.png";
 import Vector from "../../assets/Vector.png";
 import { useState } from "react";
 import ModalWindow from "./ModalWindow";
+import Actions from "./Actions";
+import ModalButton from "./ModalButton";
 
 export default function Main() {
+  // for Modal window
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -16,32 +19,69 @@ export default function Main() {
     setModalOpen(false);
   };
 
+  // for Modal Button
+
+  const [isModalBtnOpen, setModalBtnOpen] = useState(false);
+
+  const openModalBtn = () => {
+    setModalBtnOpen(!isModalBtnOpen);
+  };
+
+  const closeModalBtn = () => {
+    setModalBtnOpen(false);
+  };
+
+  // ФИЛЬТРАЦИЯ
+
   const [todos, setTodos] = useState([]);
 
+  const [filteredStatus, setFilteredStatus] = useState("todo"); // для фильтрации страниц
+
   const addNewTodo = (newTodo) => {
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    // добавление новой todo-shki
+    const newTodoItem = {
+      id: Date.now(),
+      title: newTodo,
+      status: "todo",
+    };
+    setTodos((prevTodos) => [...prevTodos, newTodoItem]);
   };
 
-  const [pageTitle, setPageTitle] = useState("To Do");
+  const [pageTitle, setPageTitle] = useState("To Do"); // изменение темы title
 
-  const changePageTitle = (newTitle) => {
+  // кнопки для перекидывания todo на другие страницы
+
+  function moveToTrash(idx) {
+    const newTodos = todos.map((item) =>
+      item.id === idx ? { ...item, status: "trash" } : item
+    );
+    setTodos(newTodos);
+    closeModalBtn();
+  }
+
+  function makeTodoDone(idx) {
+    const newTodos = todos.map((item) =>
+      item.id === idx ? { ...item, status: "done" } : item
+    );
+    setTodos(newTodos);
+  }
+
+  // для смены контента на странице
+  function changePage(newStatus, newTitle) {
+    setFilteredStatus(newStatus);
     setPageTitle(newTitle);
-  };
+  }
+
+  const filteredTodos = todos.filter((item) => {
+    if (filteredStatus == "todo" && item.status == "todo") return item;
+    if (filteredStatus == "done" && item.status == "done") return item;
+    if (filteredStatus == "trash" && item.status == "trash") return item;
+  });
 
   return (
     <div className="main">
       <div className="d-flex justify-content-between align-baseline">
-        <div id="actionButtons">
-          <button id="buttons" onClick={() => changePageTitle("To Do")}>
-            To Do
-          </button>
-          <button id="buttons" onClick={() => changePageTitle("Done")}>
-            Done
-          </button>
-          <button id="buttons" onClick={() => changePageTitle("Trash")}>
-            Trash
-          </button>
-        </div>
+        <Actions changePage={changePage} />
 
         {isModalOpen && (
           <ModalWindow addNewTodo={addNewTodo} closeModal={closeModal} />
@@ -49,15 +89,19 @@ export default function Main() {
         <button id="btnModalWindow" onClick={openModal}>
           <img src={ImagePlus} alt="Plus" />
         </button>
-        <div id="modalWindow" className=""></div>
       </div>
+
       <p id="sectionTitle">{pageTitle}</p>
       <hr className="mx-5" />
       {todos &&
-        todos.map((item, index) => (
+        filteredTodos.map((item, index) => (
           <div key={index} className="d-flex" id="itemsTodo">
-            <button id="btnMenu">
+            {isModalBtnOpen && (
+              <ModalButton moveToTrash={moveToTrash} item={item} />
+            )}
+            <button id="btnMenu" onClick={openModalBtn}>
               <img
+                id="imgVector"
                 src={Vector}
                 alt=""
                 style={{ width: "2.5px", height: "10px" }}
@@ -68,12 +112,12 @@ export default function Main() {
                 className="form-check-input"
                 type="checkbox"
                 id="exampleCheckbox"
+                onClick={() => makeTodoDone(item.id)}
               />
               <label className="form-check-label" for="exampleCheckbox">
-                {item}
+                {item.title}
               </label>
             </div>
-            <button id="">Move to Trash</button>
           </div>
         ))}
     </div>

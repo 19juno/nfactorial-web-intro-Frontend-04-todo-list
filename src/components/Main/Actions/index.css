@@ -1,0 +1,29 @@
+#actionButtons {
+  width: 389px;
+  height: 40px;
+  padding-left: 80px;
+  display: flex;
+  gap: 18px;
+  top: 286px;
+  background-color: aquamarine;
+}
+#buttons {
+  width: 86px;
+  height: 40px;
+  border-radius: 100px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+#buttons:hover {
+  border-color: #081e346b;
+  background-color: #081e346b;
+  border-width: 0%;
+}
+#buttons:active {
+  background-color: #081e346b;
+}
