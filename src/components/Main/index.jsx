@@ -7,6 +7,7 @@ import ModalWindow from "./ModalWindow";
 import Actions from "./Actions";
 import ModalButton from "./ModalButton";
 import ModalButtonForTrash from "./ModalButton/BtnForTrash";
+import { useEffect } from "react";
 
 export default function Main() {
   const [todos, setTodos] = useState([]);
@@ -15,9 +16,10 @@ export default function Main() {
   const [filteredStatus, setFilteredStatus] = useState("todo"); // для фильтрации страниц
   const [pageTitle, setPageTitle] = useState("To Do"); // изменение темы title
   const [isOpenForTrash, setOpenForTrash] = useState(false); // для кнопки из контента Trash
+  const [isChecked, setIsChecked] = useState(false); // для прослеживаний checkbox
 
+  // for ModalWindow
   const openModal = () => {
-    // for ModalWindow
     setModalOpen(!isModalOpen);
   };
 
@@ -25,9 +27,8 @@ export default function Main() {
     setModalOpen(false);
   };
 
+  // добавление новой todo-shki
   const addNewTodo = (newTodo) => {
-    // добавление новой todo-shki
-
     if (newTodo !== "") {
       const newTodoItem = {
         id: Date.now(),
@@ -40,8 +41,8 @@ export default function Main() {
     }
   };
 
+  // для смены контента на странице
   function changePage(newStatus, newTitle) {
-    // для смены контента на странице
     setFilteredStatus(newStatus);
     setPageTitle(newTitle);
   }
@@ -52,8 +53,8 @@ export default function Main() {
     if (filteredStatus == "trash" && item.status == "trash") return item;
   });
 
+  // для открытия модальной кнопки
   function openModalBtn(idx) {
-    // для открытия модальной кнопки
     const item = todos.find((item) => item.id === idx);
     if (item) {
       setModalBtnOpen((prevState) => !prevState);
@@ -63,8 +64,13 @@ export default function Main() {
     }
   }
 
+  // для смены стилей в todo
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  // для перекидывания todo на другие страницы
   function moveToTrash(idx) {
-    // для перекидывания todo на другие страницы
     const newTodos = todos.map((item) =>
       item.id === idx ? { ...item, status: "trash" } : item
     );
@@ -75,7 +81,7 @@ export default function Main() {
     const newTodos = todos.map((item) =>
       item.id === idx ? { ...item, status: "done" } : item
     );
-
+    handleCheckboxChange();
     setTodos(newTodos);
   }
 
@@ -86,6 +92,47 @@ export default function Main() {
     setTodos(newTodos);
     setOpenForTrash((prevState) => !prevState);
   };
+
+  // move back to To do
+
+  const moveBackToTodo = (idx) => {
+    const newTodos = todos.map((item) =>
+      item.id === idx ? { ...item, status: "todo" } : item
+    );
+    setTodos(newTodos);
+  };
+
+  // для хранения в localStorage
+  // function saveTodos() {
+  //   localStorage.setItem("todos", JSON.stringify(filteredTodos));
+  //   const saveTodos = localStorage.getItem("todos");
+  //   console.log(saveTodos);
+  // }
+  // saveTodos();
+
+  // Функция для сохранения данных в localStorage
+  function saveTodos() {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+  // Эффект для добавления и удаления слушателя события beforeunload
+  useEffect(() => {
+    window.addEventListener("beforeunload", saveTodos);
+    return () => {
+      window.removeEventListener("beforeunload", saveTodos);
+    };
+  }, [todos]);
+
+  function loadTodos() {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      const loadedTodos = JSON.parse(storedTodos);
+      setTodos(loadedTodos);
+    }
+  }
+  // loadTodos();
+  useEffect(() => {
+    loadTodos();
+  }, []);
 
   return (
     <div className="main">
@@ -111,6 +158,7 @@ export default function Main() {
               ? isOpenForTrash && (
                   <ModalButtonForTrash
                     deleteForever={deleteForever}
+                    moveBackToTodo={moveBackToTodo}
                     item={item}
                   />
                 )
@@ -129,10 +177,15 @@ export default function Main() {
               <input
                 className="form-check-input"
                 type="checkbox"
+                checked={isChecked}
                 id="exampleCheckbox"
-                onClick={() => makeTodoDone(item.id)}
+                onChange={() => makeTodoDone(item.id)}
               />
-              <label className="form-check-label" for="exampleCheckbox">
+              <label
+                className="form-check-label"
+                for="exampleCheckbox"
+                style={{ textDecoration: isChecked ? "line-through" : "none" }}
+              >
                 {item.title}
               </label>
             </div>

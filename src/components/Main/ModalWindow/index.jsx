@@ -11,7 +11,7 @@ export default function ModalWindow({ addNewTodo, closeModal }) {
     addNewTodo(input);
     closeModal();
   };
-  console.log(input);
+
   return (
     <div id="modalWindowContainer" className="">
       <div className="">
