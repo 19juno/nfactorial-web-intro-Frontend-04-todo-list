@@ -2,12 +2,11 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ImagePlus from "../../assets/PlusMath.png";
 import Vector from "../../assets/Vector.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalWindow from "./ModalWindow";
 import Actions from "./Actions";
 import ModalButton from "./ModalButton";
 import ModalButtonForTrash from "./ModalButton/BtnForTrash";
-import { useEffect } from "react";
 
 export default function Main() {
   const [todos, setTodos] = useState([]);
@@ -66,7 +65,9 @@ export default function Main() {
 
   // для смены стилей в todo
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    if (false) {
+      isChecked;
+    }
   };
 
   // для перекидывания todo на другие страницы
@@ -77,12 +78,20 @@ export default function Main() {
     setTodos(newTodos);
   }
 
-  function makeTodoDone(idx) {
-    const newTodos = todos.map((item) =>
-      item.id === idx ? { ...item, status: "done" } : item
-    );
-    handleCheckboxChange();
-    setTodos(newTodos);
+  function makeTodoDone(idx, newStatus) {
+    if (newStatus) {
+      const newTodos = todos.map((item) =>
+        item.id === idx ? { ...item, status: "done" } : item
+      );
+      setIsChecked(!isChecked);
+      setTodos(newTodos);
+    } else {
+      const newTodos = todos.map((item) =>
+        item.id === idx ? { ...item, status: "todo" } : item
+      );
+      setIsChecked(!isChecked);
+      setTodos(newTodos);
+    }
   }
 
   // Modal button for Trash
@@ -102,19 +111,11 @@ export default function Main() {
     setTodos(newTodos);
   };
 
-  // для хранения в localStorage
-  // function saveTodos() {
-  //   localStorage.setItem("todos", JSON.stringify(filteredTodos));
-  //   const saveTodos = localStorage.getItem("todos");
-  //   console.log(saveTodos);
-  // }
-  // saveTodos();
-
   // Функция для сохранения данных в localStorage
   function saveTodos() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
-  // Эффект для добавления и удаления слушателя события beforeunload
+
   useEffect(() => {
     window.addEventListener("beforeunload", saveTodos);
     return () => {
@@ -129,7 +130,7 @@ export default function Main() {
       setTodos(loadedTodos);
     }
   }
-  // loadTodos();
+
   useEffect(() => {
     loadTodos();
   }, []);
@@ -179,12 +180,17 @@ export default function Main() {
                 type="checkbox"
                 checked={isChecked}
                 id="exampleCheckbox"
-                onChange={() => makeTodoDone(item.id)}
+                onChange={() => makeTodoDone(item.id, !isChecked)}
               />
               <label
                 className="form-check-label"
                 for="exampleCheckbox"
-                style={{ textDecoration: isChecked ? "line-through" : "none" }}
+                style={{
+                  textDecoration:
+                    isChecked && item.status === "done"
+                      ? "line-through"
+                      : "none",
+                }}
               >
                 {item.title}
               </label>
