@@ -10,11 +10,6 @@
   position: relative;
 }
 
-#modalWindow {
-  width: auto;
-  padding-right: 100px;
-}
-
 #btnModalWindow {
   width: 52px;
   height: 52px;
@@ -43,73 +38,4 @@
 #hr {
   margin-left: 80px;
   margin-right: 80px;
-}
-
-#itemsTodo {
-  width: 654px;
-  height: auto;
-  padding-top: 20px;
-  padding-left: 56px;
-  gap: 8px;
-  position: relative;
-}
-
-#imgVector {
-  width: 4.5px;
-  height: 15px;
-  margin: 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  color: #aeaeae;
-}
-
-input[type="checkbox"]:checked + label {
-  text-decoration: line-through;
-}
-
-#btnMenu {
-  border: none;
-  width: 24px;
-  height: 24px;
-}
-#btnMenu:hover {
-  background-color: #aeaeae;
-}
-
-#btnMoveToTrash {
-  width: 240px;
-  height: auto;
-  left: 56px;
-  border-radius: 12px;
-  gap: 10px;
-  display: flex;
-  padding: 10px 0px 0px 10px;
-  background-color: #e4e6e7;
-  border: none;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-#btnMoveToTrash p {
-  font-family: "Inter";
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #353535;
-  display: flex;
-}
-#btnMoveToTrash:hover {
-  border-color: #081e346b;
-  background-color: #081e346b;
-  border-width: 0%;
-}
-#btnMoveToTrash:active {
-  background-color: #081e346b;
-}
-#imgTrash {
-  width: 20px;
-  height: 20px;
 }

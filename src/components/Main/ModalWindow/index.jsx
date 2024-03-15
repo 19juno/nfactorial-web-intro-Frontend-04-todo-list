@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useStatesFunctions } from "../../../ContextApp";
 
-export default function ModalWindow({ addNewTodo, closeModal }) {
+export default function ModalWindow() {
+  const { closeModal, addNewTodo } = useStatesFunctions();
+
   const [input, setInput] = useState("");
   const handleChange = (e) => {
     setInput(e.target.value);

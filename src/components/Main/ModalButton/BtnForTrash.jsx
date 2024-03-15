@@ -1,12 +1,11 @@
 import "./index.css";
 import Trash from "../../../assets/Trash.png";
 import MoveBackBtn from "../../../assets/MoveBackBtn.png";
+import { useStatesFunctions } from "../../../ContextApp";
 
-export default function ModalButtonForTrash({
-  deleteForever,
-  item,
-  moveBackToTodo,
-}) {
+export default function ModalButtonForTrash({ item }) {
+  const { deleteForever, moveBackToTodo } = useStatesFunctions();
+
   return (
     <div className="btn-group-vertical" id="btnForTrash">
       <button id="insideBtn" onClick={() => deleteForever(item.id)}>

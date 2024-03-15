@@ -1,6 +1,9 @@
 import "./index.css";
+import { useStatesFunctions } from "../../../ContextApp";
 
-export default function Actions({ changePage }) {
+export default function Actions() {
+  const { changePage } = useStatesFunctions();
+
   return (
     <div id="actionButtons">
       <button id="buttons" onClick={() => changePage("todo", "To Do")}>
